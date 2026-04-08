@@ -1,83 +1,43 @@
-import { motion } from "framer-motion";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
-import SectionHeading from "../components/SectionHeading";
 import { projects } from "../data/portfolio";
 
 export default function ProjectsSection() {
   return (
-    <div className="px-4 md:px-8">
-      <div className="mx-auto w-full max-w-6xl">
-        <SectionHeading
-          eyebrow="Projects"
-          title="Featured Projects"
-          description="A selection of practical builds focused on analytics, intelligent systems, and usable insights."
-        />
+    <section className="px-4 md:px-8">
+      <div className="mx-auto w-full max-w-6xl border-b border-border pb-16">
+        <div className="mb-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent2">Projects</p>
+          <h2 className="headline-font mt-4 text-3xl font-bold text-text md:text-4xl">
+            Case studies and shipped work.
+          </h2>
+        </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.title}
-              className="group section-shell premium-ring overflow-hidden rounded-3xl"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.22 }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
-              whileHover={{ y: -8, scale: 1.01 }}
-            >
-              <div className="relative h-48 overflow-hidden bg-bg-soft/45">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                />
+        <div className="divide-y divide-border border-y border-border">
+          {projects.map((project) => (
+            <article key={project.title} className="py-7 transition duration-200 hover:pl-2">
+              <h3 className="headline-font text-2xl font-semibold text-text">{project.title}</h3>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted md:text-base">
+                {project.description}
+              </p>
+              <p className="mt-4 font-mono text-xs uppercase tracking-[0.08em] text-muted">
+                {project.tech.join(" / ")}
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-6 text-sm font-semibold uppercase tracking-[0.08em]">
+                {project.liveLink ? (
+                  <a href={project.liveLink} target="_blank" rel="noreferrer" className="nav-link text-text">
+                    View Project
+                  </a>
+                ) : null}
+                {project.githubLink ? (
+                  <a href={project.githubLink} target="_blank" rel="noreferrer" className="nav-link text-text">
+                    Source Code
+                  </a>
+                ) : null}
               </div>
-              <div className="space-y-4 p-6">
-                <h3 className="headline-font text-xl font-semibold text-text">
-                  {project.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted">{project.description}</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tag) => (
-                    <span
-                      key={`${project.title}-${tag}`}
-                      className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-3 pt-1">
-                  {project.liveLink ? (
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-text transition hover:bg-bg-soft/60"
-                    >
-                      <FiExternalLink size={14} />
-                      Live
-                    </a>
-                  ) : null}
-
-                  {project.githubLink ? (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-text transition hover:bg-bg-soft/60"
-                    >
-                      <FiGithub size={14} />
-                      GitHub
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

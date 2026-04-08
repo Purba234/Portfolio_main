@@ -1,14 +1,15 @@
 import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiMail, FiMapPin } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { personalInfo } from "../data/portfolio";
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="scroll-mt-28 px-4 pt-10 md:px-8 md:pt-14">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-2 md:items-center">
-        <div className="space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-muted backdrop-blur-xl">
+    <section id="hero" className="px-4 pt-8 md:px-8 md:pt-12">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 border-b border-border pb-16 md:grid-cols-[1.05fr_0.95fr] md:items-start">
+        <div className="space-y-7 md:pt-4">
+          <div className="inline-flex items-center gap-2 border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             <span className="h-2 w-2 rounded-full bg-accent2" />
             <FiMapPin size={13} />
             {personalInfo.location}
@@ -16,7 +17,7 @@ export default function HeroSection() {
 
           <h1 className="headline-font text-4xl font-bold leading-tight text-text sm:text-5xl md:text-6xl">
             <TypeAnimation
-              sequence={[700, "Hi I am Purba Saha"]}
+              sequence={[700, "Building practical systems with AI and full-stack engineering."]}
               speed={72}
               repeat={0}
               cursor
@@ -31,33 +32,30 @@ export default function HeroSection() {
             {personalInfo.intro}
           </p>
 
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#projects"
-              className="rounded-full bg-gradient-to-r from-accent to-accent2 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/30 transition hover:-translate-y-0.5"
-            >
+          <div className="flex flex-wrap gap-6 text-sm font-semibold uppercase tracking-[0.08em]">
+            <Link to="/projects" className="nav-link text-text">
               View Projects
-            </a>
+            </Link>
             <a
               href="/projects/Purba_New_cv.pdf"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-border bg-card/70 px-6 py-3 text-sm font-semibold text-text transition hover:-translate-y-0.5"
+              className="nav-link text-text"
             >
               View Resume
             </a>
-            <a
-              href="#contact"
-              className="rounded-full border border-border bg-transparent px-6 py-3 text-sm font-semibold text-text transition hover:bg-bg-soft/65"
+            <Link
+              to="/contact"
+              className="nav-link text-text"
             >
               Contact Me
-            </a>
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/75 text-text transition hover:-translate-y-0.5"
+              className="inline-flex h-11 w-11 items-center justify-center border border-border text-text transition hover:-translate-y-0.5"
               aria-label="Send email"
             >
               <FiMail size={18} />
@@ -66,7 +64,7 @@ export default function HeroSection() {
               href={personalInfo.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/75 text-text transition hover:-translate-y-0.5"
+              className="inline-flex h-11 w-11 items-center justify-center border border-border text-text transition hover:-translate-y-0.5"
               aria-label="GitHub"
             >
               <FaGithub size={18} />
@@ -75,7 +73,7 @@ export default function HeroSection() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card/75 text-text transition hover:-translate-y-0.5"
+              className="inline-flex h-11 w-11 items-center justify-center border border-border text-text transition hover:-translate-y-0.5"
               aria-label="LinkedIn"
             >
               <FaLinkedin size={18} />
@@ -83,22 +81,25 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="flex justify-center md:justify-end">
-          <div className="premium-ring relative w-full max-w-sm overflow-hidden rounded-[2rem] p-6">
-            <div className="absolute inset-5 rounded-full bg-accent/30 blur-3xl" />
-            <div className="relative mx-auto h-72 w-72 overflow-hidden rounded-full border border-border bg-bg-soft shadow-soft md:h-80 md:w-80">
-              <img
-                src="/projects/Profile.jpg"
-                alt="Purba Saha profile"
-                className="h-full w-full object-cover"
-                onError={(event) => {
-                  const target = event.currentTarget;
-                  target.onerror = null;
-                  target.src =
-                    "https://ui-avatars.com/api/?name=Purba+Saha&background=1b2558&color=e8edff&size=640";
-                }}
-              />
-            </div>
+        <div className="terminal-panel border border-border bg-card px-0 py-0">
+          <div className="border-b border-border px-4 py-2">
+            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+              runtime: portfolio-preview.ts
+            </span>
+          </div>
+          <pre className="overflow-x-auto p-4 font-mono text-xs leading-6 text-text">
+{`const profile = {
+  focus: ["AI/ML", "cybersecurity", "full-stack"],
+  style: "clean architecture",
+  goal: "ship useful products"
+};
+
+function buildProduct() {
+  return solveRealWorldProblems(profile);
+}`}
+          </pre>
+          <div className="border-t border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.1em] text-accent2">
+            status: ready
           </div>
         </div>
       </div>

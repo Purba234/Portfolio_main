@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
 import { navLinks, personalInfo } from "../data/portfolio";
@@ -13,24 +14,40 @@ export default function Navbar() {
   }, []);
 
   const isDark = mounted ? resolvedTheme !== "light" : true;
+  const internalLinks = navLinks.filter((link) => !link.external);
+  const externalLinks = navLinks.filter((link) => link.external);
 
   return (
     <header className="sticky top-4 z-50 px-4 md:px-8">
       <nav className="premium-ring mx-auto flex w-full max-w-6xl items-center justify-between rounded-2xl border border-border bg-card/75 px-4 py-3 shadow-soft backdrop-blur-2xl md:px-6">
-        <a
-          href="#hero"
+        <Link
+          to="/"
           className="headline-font text-sm font-bold tracking-[0.14em] text-text md:text-base"
         >
           {personalInfo.brand}
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-6 lg:flex">
-          {navLinks.map((link) => (
+          {internalLinks.map((link) => (
+            <li key={link.label}>
+              <NavLink
+                to={link.href}
+                className={({ isActive }) =>
+                  `nav-link text-sm font-medium transition-colors hover:text-text ${
+                    isActive ? "text-text" : "text-muted"
+                  } ${isActive ? "is-active" : ""}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+          {externalLinks.map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noreferrer" : undefined}
+                target="_blank"
+                rel="noreferrer"
                 className="text-sm font-medium text-muted transition-colors hover:text-text"
               >
                 {link.label}
@@ -64,12 +81,23 @@ export default function Navbar() {
       {open ? (
         <div className="mx-auto mt-2 w-full max-w-6xl rounded-2xl border border-border bg-card/90 p-4 shadow-soft backdrop-blur-2xl lg:hidden">
           <ul className="grid gap-3">
-            {navLinks.map((link) => (
+            {internalLinks.map((link) => (
+              <li key={link.label}>
+                <NavLink
+                  to={link.href}
+                  className="block rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:bg-bg-soft/60 hover:text-text"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+            {externalLinks.map((link) => (
               <li key={link.label}>
                 <a
                   href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
+                  target="_blank"
+                  rel="noreferrer"
                   className="block rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:bg-bg-soft/60 hover:text-text"
                   onClick={() => setOpen(false)}
                 >
