@@ -41,7 +41,7 @@ export const personalInfo = {
   aboutSecondary:
     "Currently open to internships and full-time opportunities in data-driven roles.",
   email: "purbasahasince2005@gmail.com",
-  phone: "+91 00000 00000",
+  phone: "+91 8389991324",
   github: "https://github.com/Purba234",
   linkedin: "https://www.linkedin.com/in/purba-saha-b273a12b8/",
 };
